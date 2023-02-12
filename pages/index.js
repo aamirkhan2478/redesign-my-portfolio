@@ -1,11 +1,8 @@
-import Head from 'next/head'
-import Image from 'next/image'
-import { Inter } from '@next/font/google'
-import styles from '@/styles/Home.module.css'
+import Head from "next/head";
+import Navbar from "@/components/navbar/Navbar";
+import Script from "next/script";
 
-const inter = Inter({ subsets: ['latin'] })
-
-export default function Home() {
+const Home = () => {
   return (
     <>
       <Head>
@@ -14,7 +11,18 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <h1>Hello World</h1>
+      <Script
+        src="https://unpkg.com/ionicons@4.5.10-0/dist/ionicons/ionicons.esm.js"
+        type="module"
+      />
+      <Script
+        src="https://unpkg.com/ionicons@4.5.10-0/dist/ionicons/ionicons.js"
+        nomodule=""
+        defer
+      />
+      <Navbar />
     </>
-  )
-}
+  );
+};
+
+export default Home;
