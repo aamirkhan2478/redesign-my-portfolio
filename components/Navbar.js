@@ -1,9 +1,36 @@
 import Image from "next/image";
 import logo from "@/public/logo.png";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
+  useEffect(() => {
+    const sections = document.querySelectorAll("section");
+    const navLinks = document.querySelectorAll("nav a");
+
+    document.addEventListener("scroll", () => {
+      const currentPosition = window.scrollY + 80;
+
+      sections.forEach((section) => {
+        if (
+          section.offsetTop <= currentPosition &&
+          section.offsetTop + section.offsetHeight > currentPosition
+        ) {
+          navLinks.forEach((link) => {
+            link.classList.remove("nav-active");
+
+            if (
+              section.getAttribute("id") ===
+              link.getAttribute("href").substring(1)
+            ) {
+              link.classList.add("nav-active");
+            }
+          });
+        }
+      });
+    });
+  }, []);
+
   return (
     <header className={open ? "header active" : "header"} id="nav-header">
       <a href="#">
