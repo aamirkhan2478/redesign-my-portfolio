@@ -6,7 +6,14 @@ import Joi from "joi";
 const signupSchema = Joi.object({
   name: Joi.string().required(),
   email: Joi.string().email().required(),
-  password: Joi.string().min(3).max(10).required(),
+  password: Joi.string()
+    .pattern(
+      new RegExp(
+        /^(?=.*[0-9])(?=.*[a-zA-Z ])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&* ]{8,20}$/
+      ),
+      "Password must contain at least 8 characters, 1 number, 1 upper, 1 lowercase and 1 special character!"
+    )
+    .required(),
 });
 
 const handler = async (req, res) => {
