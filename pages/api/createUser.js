@@ -5,6 +5,7 @@ import Joi from "joi";
 
 const signupSchema = Joi.object({
   name: Joi.string().required(),
+  secret: Joi.string().required(),
   email: Joi.string().email().required(),
   password: Joi.string()
     .pattern(
@@ -18,7 +19,7 @@ const signupSchema = Joi.object({
 
 const handler = async (req, res) => {
   if (req.method === "POST") {
-    const { name, email, password } = req.body;
+    const { name, email, password, secret } = req.body;
     const { error } = signupSchema.validate(req.body, { abortEarly: false });
     if (error) {
       return res.status(400).send(error.details);
@@ -28,7 +29,7 @@ const handler = async (req, res) => {
       if (checkEmail) {
         return res.status(400).json({ error: "Email already exists" });
       }
-      let user = new User({ name, email, password });
+      let user = new User({ name, email, password, secret });
       await user.save();
       res.status(200).json({ success: "success" });
     } catch (err) {

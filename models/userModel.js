@@ -16,6 +16,10 @@ const userSchema = mongoose.Schema({
     type: String,
     required: true,
   },
+  secret: {
+    type: String,
+    required: true,
+  },
 });
 
 // Generate JWT Token
@@ -29,6 +33,10 @@ userSchema.methods.generateToken = function () {
 userSchema.pre("save", async function (next) {
   if (this.isModified("password")) {
     this.password = await bcrypt.hash(this.password, 12);
+  }
+
+  if (this.isModified("secret")) {
+    this.secret = await bcrypt.hash(this.secret, 12);
   }
   next();
 });
