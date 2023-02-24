@@ -1,7 +1,7 @@
 import connectDb from "@/middlewares/mongoose";
 import projectModel from "@/models/projectModel";
 
-const handler = async (req, res) => {
+const handler = async (_req, res) => {
   try {
     const projects = await projectModel.find();
     res.send(projects);

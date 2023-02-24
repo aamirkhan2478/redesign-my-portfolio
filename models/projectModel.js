@@ -21,7 +21,7 @@ const projectSchema = mongoose.Schema({
     type: String,
     required: true,
   },
-  demo: {
+  source: {
     type: String,
     required: true,
   },
